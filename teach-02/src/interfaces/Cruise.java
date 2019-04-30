@@ -20,4 +20,8 @@ public class Cruise implements Expense {
                 break;
         }
     }
+
+    public float getCost() {
+        return cost;
+    }
 }
