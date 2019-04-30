@@ -2,7 +2,7 @@ package interfaces;
 
 public class Cruise implements Expense {
     Destination destination;
-    double cost;
+    float cost;
 
     public Cruise(Destination destination) {
 
@@ -10,13 +10,13 @@ public class Cruise implements Expense {
 
         switch (this.destination) {
             case Mexico:
-                this.cost = 1000;
+                this.cost = 1000f;
                 break;
             case Europe:
-                this.cost = 2000;
+                this.cost = 2000f;
                 break;
             case Japan:
-                this.cost = 3000;
+                this.cost = 3000f;
                 break;
         }
     }
