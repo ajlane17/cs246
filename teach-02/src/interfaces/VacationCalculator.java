@@ -1,5 +1,6 @@
 package interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VacationCalculator {
@@ -8,9 +9,10 @@ public class VacationCalculator {
         VacationCalculator vc = new VacationCalculator();
 
         // Calculate some vacation costs...
-        float japanCost = vc.calculateVacationCost(Destination.Japan);
+        float japanCost = vc.calculateVacationCost(Destination.Japan, 5);
 
         // Print the cost...
+        System.out.format("The vacation cost is: $%.2f.%n", japanCost);
     }
 
     /**
@@ -20,9 +22,21 @@ public class VacationCalculator {
      * @param  dest the destination of the vacation
      * @return      the total cost of the vacation
      */
-    public float calculateVacationCost(Destination dest)
+    public float calculateVacationCost(Destination dest, int nights)
     {
-        return 0.0f;
+        float totalCost = 0;
+
+        Cruise cruise = new Cruise(dest);
+        Dining dining = new Dining(dest, nights);
+        Lodging lodging = new Lodging(dest, nights);
+
+        ArrayList<Expense> expenseArrayList = new ArrayList<>();
+        expenseArrayList.add(cruise);
+        expenseArrayList.add(dining);
+        expenseArrayList.add(lodging);
+
+        totalCost = tallyExpenses(expenseArrayList);
+        return totalCost;
     }
 
     /**
@@ -35,6 +49,11 @@ public class VacationCalculator {
      */
     float tallyExpenses(List<Expense> expenses)
     {
-        return 0.0f;
+        float total = 0;
+        for (Expense expense : expenses) {
+            total += expense.getCost();
+        }
+        return total;
     }
+
 }
