@@ -1,0 +1,1 @@
+{"health":100,"mana":100,"gold":100,"equipment":{"Sword":400,"Shield":250,"Armor":350}}
