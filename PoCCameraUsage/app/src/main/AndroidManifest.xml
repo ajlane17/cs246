@@ -6,11 +6,9 @@
     <!-- Permissions must be direct child of  manifest-->
     <!--uses-permission android:name="android.permission.CAMERA" />-->
     <uses-feature
-        android:name="android.hardware.camera.any"
+        android:name="android.hardware.camera2"
         android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -20,37 +21,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CaptureImage extends AppCompatActivity implements SurfaceHolder.Callback {
+public class CaptureImage extends AppCompatActivity {
 
-    //private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_TAKE_PHOTO = 0;
     private String currentPhotoPath;
-    private Camera mCamera;
-    private int cameraId = 0;
-    private Context mContext;
-    private CameraView mCameraView;
+    private ImageView mImageView;
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Creates intent
-        Intent intent = getIntent();
-        //Button
-        Button btnCaptureImage = (Button)findViewById(R.id.btnCaptureImage);
-        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dispatchTakePictureIntent();
-            }
+        mImageView = findViewById(R.id.imageView);
 
-        });
-        // do we have a camera? only need main camera
-        if (!getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-            Toast.makeText(this, "No camera on this device", Toast.LENGTH_LONG)
-                    .show();
-        }
     }
 
     protected void onResume(){
@@ -58,15 +41,6 @@ public class CaptureImage extends AppCompatActivity implements SurfaceHolder.Cal
 
         //sets layout for new activity
         setContentView(R.layout.capture_image);
-
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -76,7 +50,13 @@ public class CaptureImage extends AppCompatActivity implements SurfaceHolder.Cal
 
     }
 
+    public void captureImage(View view) {
+        Intent imageTakeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+        if (imageTakeIntent.resolveActivity(getPackageManager())!=null) {
+            
+        }
+    }
 
 
     //Creates image file and folder structure
@@ -121,18 +101,5 @@ public class CaptureImage extends AppCompatActivity implements SurfaceHolder.Cal
         }
     }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
 
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-
-    }
 }
