@@ -15,15 +15,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Start another thread that takes a class implementing runnable
-        new Thread(new Evens()).start();
-        new Thread(new Odds()).start();
+        new Thread(new Evens(this)).start();
+        new Thread(new Odds(this)).start();
 
         //Create button and its listener
         Button btnEvens = (Button)findViewById(R.id.btnEvens);
         btnEvens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread(new Evens()).start();
+                new Thread(new Evens(MainActivity.this)).start();
             }
         });
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btnOdds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread(new Odds()).start();
+                new Thread(new Odds(MainActivity.this)).start();
             }
         });
 
