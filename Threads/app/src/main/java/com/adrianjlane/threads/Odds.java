@@ -1,8 +1,11 @@
 package com.adrianjlane.threads;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.concurrent.TimeUnit;
 
-public class Odds implements Runnable {
+public class Odds extends MainActivity implements Runnable {
 
     @Override
     public void run() {
@@ -16,5 +19,14 @@ public class Odds implements Runnable {
                 e.printStackTrace();
             }
         }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Making a toast
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, "Counting is complete", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 }
