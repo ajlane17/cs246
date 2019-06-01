@@ -34,12 +34,15 @@ import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 public class CaptureImage extends AppCompatActivity {
 
     private static final String TAG = "CaptureImage";
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
+
     private Camera mCamera;
     private CameraPreview mPreview;
-    private SurfaceView preview;
     private MediaRecorder mediaRecorder;
-    View view = null;
-    private PictureCallback picture;
+    private static File mediaFile;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +64,36 @@ public class CaptureImage extends AppCompatActivity {
             Log.d(TAG, "Camera instance created");
 
             // Create our Preview view and set it as the content of our activity.
-
             mPreview = new CameraPreview(this, mCamera);
+            Log.d(TAG, "CameraPreview created");
 
             FrameLayout preview = (FrameLayout)findViewById(R.id.camera_preview);
+            Log.d(TAG, "Assigned camera_preview");
+
+            if (preview.getParent() != null) {
+                ((ViewGroup)preview.getParent()).removeView(preview);
+                Log.d(TAG, "removeView(preview)");
+            }
+            //TODO: This is causeing a stackoverflow error
             preview.addView(preview);
 
+
+            Log.d(TAG, "Added preview");
+
             // Add a listener to the Capture button
-            Button captureButton = (Button) findViewById(R.id.btnCaptureImage);
+            Button captureButton = (Button) findViewById(R.id.button_capture);
             captureButton.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // get an image from the camera
-                            mCamera.takePicture(null, null, getOutputMediaFile());
                             Log.d(TAG, "Button Clicked");
+                            // get an image from the camera
+                            mCamera.takePicture(null, null, mPicture);
+
+                            if (mPreview == null) {
+                                mPreview = new CameraPreview(CaptureImage.this, mCamera);
+                            }
+
                         }
                     }
             );
@@ -146,8 +164,7 @@ public class CaptureImage extends AppCompatActivity {
         }
     };
 
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
+
 
     /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
