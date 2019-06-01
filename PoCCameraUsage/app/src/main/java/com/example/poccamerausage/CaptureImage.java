@@ -110,7 +110,6 @@ public class CaptureImage extends AppCompatActivity {
 
     @Override
     protected void onPause(){
-        //TODO: Release camera
         super.onPause();
         releaseMediaRecorder();       // if you are using MediaRecorder, release it first
         releaseCamera();              // release the camera immediately on pause event
