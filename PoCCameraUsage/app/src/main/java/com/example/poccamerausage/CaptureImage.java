@@ -40,9 +40,6 @@ public class CaptureImage extends AppCompatActivity {
     private Camera mCamera;
     private CameraPreview mPreview;
     private MediaRecorder mediaRecorder;
-    private static File mediaFile;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +74,6 @@ public class CaptureImage extends AppCompatActivity {
             //TODO: This is causeing a stackoverflow error
             preview.addView(preview);
 
-
             Log.d(TAG, "Added preview");
 
             // Add a listener to the Capture button
@@ -93,12 +89,9 @@ public class CaptureImage extends AppCompatActivity {
                             if (mPreview == null) {
                                 mPreview = new CameraPreview(CaptureImage.this, mCamera);
                             }
-
                         }
                     }
             );
-
-
     }
 
     protected void onResume(){
@@ -113,7 +106,6 @@ public class CaptureImage extends AppCompatActivity {
         super.onPause();
         releaseMediaRecorder();       // if you are using MediaRecorder, release it first
         releaseCamera();              // release the camera immediately on pause event
-
     }
 
     /** Check if this device has a camera */
