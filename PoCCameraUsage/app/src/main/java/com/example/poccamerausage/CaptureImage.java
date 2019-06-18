@@ -63,16 +63,15 @@ public class CaptureImage extends AppCompatActivity {
             // Create our Preview view and set it as the content of our activity.
             mPreview = new CameraPreview(this, mCamera);
             Log.d(TAG, "CameraPreview created");
-
-            FrameLayout preview = (FrameLayout)findViewById(R.id.camera_preview);
+            FrameLayout preview =(FrameLayout)findViewById(R.id.camera_preview);
             Log.d(TAG, "Assigned camera_preview");
 
             if (preview.getParent() != null) {
                 ((ViewGroup)preview.getParent()).removeView(preview);
-                Log.d(TAG, "removeView(preview)");
+                Log.d(TAG, "***removeView(preview)***");
             }
             //TODO: This is causeing a stackoverflow error
-            preview.addView(preview);
+            //preview.addView(preview);
 
             Log.d(TAG, "Added preview");
 
